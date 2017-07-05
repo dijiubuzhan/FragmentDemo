@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 
-public class ContactsFragment extends Fragment implements View.OnClickListener{
+public class ContactsFragment2 extends Fragment implements View.OnClickListener{
 
     private LinearLayout m_layout;
     private ContactClickListener m_contactClickListener;
@@ -29,7 +29,7 @@ public class ContactsFragment extends Fragment implements View.OnClickListener{
         void onContactClick();
     }
 
-    public ContactsFragment() {
+    public ContactsFragment2() {
         // Required empty public constructor
     }
 

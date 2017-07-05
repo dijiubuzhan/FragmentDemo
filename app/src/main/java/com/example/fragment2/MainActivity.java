@@ -1,11 +1,13 @@
 package com.example.fragment2;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -17,8 +19,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener,MessageFragment.MessageClickListener {
 
+    private static final String TAG = "FragmentActivity";
     private MessageFragment messageFragment;
     private ContactsFragment contactsFragment;
     private NewsFragment newsFragment;
@@ -101,6 +104,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         fragmentlist.add(contactsFragment);
         fragmentlist.add(newsFragment);
         fragmentlist.add(settingFragment);
+
+
         iniViews();
         setTabSelection(currentPage);
     }
@@ -133,7 +138,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         contactsLayout.setOnClickListener(this);
         newsLayout.setOnClickListener(this);
         settingLayout.setOnClickListener(this);
-        m_viewPager.setAdapter(new MyFrageStatePagerAdapter(getSupportFragmentManager()));
+
+
+        m_viewPager.setAdapter(new MyFrageStatePagerAdapter(getFragmentManager()));
+
     }
 
     @Override
@@ -184,7 +192,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 settingText.setTextColor(Color.WHITE);
                 break;
         }
-        getSupportFragmentManager().beginTransaction().commit();
+        getFragmentManager().beginTransaction().commit();
     }
 
     private void clearSelection() {
@@ -203,9 +211,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         m_viewPager.setCurrentItem(desTab);
     }
 
+    @Override
+    public void onMessageClick() {
+        Intent intent=new Intent(this,SecondActivity.class);
+        intent.putExtra(MessageFragment2.ARG_PARAM1,"com from MainActivity");
+        startActivity(intent);
+    }
+
+
     private class MyFrageStatePagerAdapter extends FragmentStatePagerAdapter {
 
-        public MyFrageStatePagerAdapter(android.support.v4.app.FragmentManager fm) {
+        public MyFrageStatePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
